@@ -156,6 +156,10 @@ else version (Solaris)
 {
     enum CLOCK_MONOTONIC = 4;
 }
+else version (Hurd)
+{
+    enum CLOCK_MONOTONIC = 1;
+}
 else
 {
     static assert(0);
@@ -259,14 +263,22 @@ else version (Solaris)
 
     alias timespec timestruc_t;
 }
+else version (Hurd)
+{
+    struct timespec
+    {
+        time_t  tv_sec;
+        c_long  tv_nsec;
+    }
+}
 else
 {
     static assert(false, "Unsupported platform");
 }
 
-version (CRuntime_Glibc)
+version (cruntime_glibc)
 {
-    enum CLOCK_PROCESS_CPUTIME_ID = 2;
+    enum clock_process_CPUTIME_ID = 2;
     enum CLOCK_THREAD_CPUTIME_ID  = 3;
 
     // NOTE: See above for why this is commented out.
