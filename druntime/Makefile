@@ -76,9 +76,9 @@ endif
 
 # build with shared library support
 # (defaults to true on supported platforms, can be overridden w/ make SHARED=0)
-SHARED=$(if $(findstring $(OS),linux freebsd dragonflybsd),1,)
+SHARED=$(if $(findstring $(OS),linux hurd freebsd dragonflybsd),1,)
 
-LINKDL=$(if $(findstring $(OS),linux),-L-ldl,)
+LINKDL=$(if $(findstring $(OS),linux hurd),-L-ldl,)
 
 MAKEFILE = $(firstword $(MAKEFILE_LIST))
 
@@ -255,6 +255,9 @@ $(DOC_OUTPUT_DIR)/core_sys_freebsd_netinet_%.html : import/core/sys/freebsd/neti
 	$(DMD) $(DDOCFLAGS) -Df$@ project.ddoc $(DOCFMT) $<
 
 $(DOC_OUTPUT_DIR)/core_sys_freebsd_sys_%.html : import/core/sys/freebsd/sys/%.d $(DMD)
+	$(DMD) $(DDOCFLAGS) -Df$@ project.ddoc $(DOCFMT) $<
+
+$(DOC_OUTPUT_DIR)/core_sys_hurd_%.html : src/core/sys/hurd/%.d $(DMD)
 	$(DMD) $(DDOCFLAGS) -Df$@ project.ddoc $(DOCFMT) $<
 
 $(DOC_OUTPUT_DIR)/core_sys_linux_%.html : import/core/sys/linux/%.d $(DMD)
