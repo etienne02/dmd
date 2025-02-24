@@ -1680,7 +1680,7 @@ bool download(string to, string from, uint tries = 3)
 /**
 Detects the host OS.
 
-Returns: a string from `{windows, osx,linux,freebsd,openbsd,netbsd,dragonflybsd,solaris}`
+Returns: a string from `{windows, osx,linux,hurd,freebsd,openbsd,netbsd,dragonflybsd,solaris}`
 */
 string detectOS()
 {
@@ -1690,6 +1690,8 @@ string detectOS()
         return "osx";
     else version(linux)
         return "linux";
+    else version(Hurd)
+        return "Hurd";
     else version(FreeBSD)
         return "freebsd";
     else version(OpenBSD)
